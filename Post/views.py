@@ -81,7 +81,7 @@ def model(request:Request):
             
             return Response(data=response, status=status.HTTP_201_CREATED)
         
-        return Response(data=serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     response = {
         "message": "post",
