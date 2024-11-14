@@ -51,3 +51,10 @@ def homepage(request:Request):
 def list_post(request:Request):
     return Response(data=posts, status=status.HTTP_200_OK)
 
+
+@api_view(http_method_names=["GET"])
+def post_detail(request:Request, pk:int):
+    post = posts[pk]
+    if post:
+        return Response(data=post, status=status.HTTP_200_OK)
+    return Response(data={"error":"Doesn't Exist"}, status=status.HTTP_404_NOT_FOUND)
