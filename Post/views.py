@@ -65,6 +65,24 @@ def post_detail(request:Request, pk:int):
 def model(request:Request):
     posts= Post.objects.all()
     serializer = Modelserializer(instance=posts, many=True)
+    
+    if request.method == 'POST':
+        data = request.data
+        
+        serializer = Modelserializer(data=data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            
+            response = {
+            "message":"Created",
+            "data": data
+            }
+            
+            return Response(data=response, status=status.HTTP_201_CREATED)
+        
+        return Response(data=serializer.error, status=status.HTTP_400_BAD_REQUEST)
+    
     response = {
         "message": "post",
         "data": serializer.data
