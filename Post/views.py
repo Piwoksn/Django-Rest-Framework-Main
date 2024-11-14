@@ -13,6 +13,8 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
+from .models import Post
+from .serializers import Modelserializer
 
 posts = [
     {
@@ -58,3 +60,13 @@ def post_detail(request:Request, pk:int):
     if post:
         return Response(data=post, status=status.HTTP_200_OK)
     return Response(data={"error":"Doesn't Exist"}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(http_method_names=["GET", "POST"])
+def model(request:Request):
+    posts= Post.objects.all()
+    serializer = Modelserializer(instance=posts, many=True)
+    response = {
+        "message": "post",
+        "data": serializer.data
+    }
+    return Response(data=response, status=status.HTTP_200_OK)
