@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "Post",
     
     # third party apps
-    "django-rest-framework",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
