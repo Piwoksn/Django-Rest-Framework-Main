@@ -165,7 +165,7 @@ class PostRetrieveUpdateDelete(APIView):
             serialized.save()
             
             response = {
-                "message": f"id= {pk} Updated Successfully",
+                "message": f"id = {pk} Updated Successfully",
                 "data": serialized.data
             }
             return Response(data=response, status=status.HTTP_200_OK)
