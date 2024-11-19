@@ -13,4 +13,5 @@ urlpatterns = [
     path("getPost/", views.PostGetClassView.as_view(), name="getPost"),
     path("modify/<int:pk>", views.PostRetrieveUpdateDelete.as_view(), name="modify"),
     path("mixinclass/", views.GetPost_with_Mixins.as_view(), name="mixin" ),
+    path("crud/<int:pk>", views.Retrieve_Updat_Delete_with_Mixin.as_view(), name="crud"),
 ]
