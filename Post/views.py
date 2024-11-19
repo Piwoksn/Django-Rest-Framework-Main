@@ -91,3 +91,21 @@ def model(request:Request):
         "data": serializer.data
     }
     return Response(data=response, status=status.HTTP_200_OK)
+
+
+@api_view(http_method_names=["PUT"])
+def updatedata(request:Request, pk:int):
+    db = get_object_or_404(Post, pk=pk)
+    data = request.data
+    serialize = Modelserializer(instance=db, data=data)
+    if serialize.is_valid():
+        serialize.save()
+        response = {
+            "message": "Updated Successfully",
+            "data": serialize.data
+        }
+        return Response(data=response, status=status.HTTP_200_OK)
+    return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    
