@@ -142,3 +142,40 @@ class PostGetClassView(APIView):
             }
             return Response(data=response, status=status.HTTP_201_CREATED)
         return Response(data=serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PostRetrieveUpdateDelete(APIView):
+    serializer = Modelserializer
+    
+    def get(self, request:Request, pk:int, *args, **kwargs):
+        item = get_object_or_404(Post, pk=pk)
+        serialized = self.serializer(instance = item)
+        
+        response = {
+            "message": "Single Item",
+            "data": serialized.data
+        }
+        
+        return Response(data=response, status=status.HTTP_200_OK)
+    
+    def put(self, request:Request, pk:int):
+        data = request.data
+        item = get_object_or_404(Post, pk=pk)
+        serialized = self.serializer(instance = item, data=data)
+        if serialized.is_valid():
+            serialized.save()
+            
+            response = {
+                "message": f"id= {pk} Updated Successfully",
+                "data": serialized.data
+            }
+            return Response(data=response, status=status.HTTP_200_OK)
+        return Response(data=serialized.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request:Request, pk):
+        item = get_object_or_404(Post, pk=pk)
+        item.delete()
+        response = {
+            "message": f"Deleted Successfully -  id = {pk}",
+        }
+        
+        return Response(data=response, status=status.HTTP_200_OK)

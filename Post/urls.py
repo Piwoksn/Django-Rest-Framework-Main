@@ -11,4 +11,5 @@ urlpatterns = [
     path("delete/<int:pk>", views.deletepost, name="deletepost"),
     path("model/", views.model, name="post_model"),
     path("getPost/", views.PostGetClassView.as_view(), name="getPost"),
+    path("modify/<int:pk>", views.PostRetrieveUpdateDelete.as_view(), name="modify"),
 ]
