@@ -12,4 +12,5 @@ urlpatterns = [
     path("model/", views.model, name="post_model"),
     path("getPost/", views.PostGetClassView.as_view(), name="getPost"),
     path("modify/<int:pk>", views.PostRetrieveUpdateDelete.as_view(), name="modify"),
+    path("mixinclass/", views.GetPost_with_Mixins.as_view(), name="mixin" ),
 ]

@@ -11,7 +11,7 @@
 
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics, mixins
 from rest_framework.decorators import api_view, APIView
 from .models import Post
 from .serializers import Modelserializer
@@ -179,3 +179,18 @@ class PostRetrieveUpdateDelete(APIView):
         }
         
         return Response(data=response, status=status.HTTP_200_OK)
+
+
+class GetPost_with_Mixins(generics.GenericAPIView, 
+                          mixins.ListModelMixin, 
+                          mixins.CreateModelMixin):
+    serializer_class = Modelserializer
+    queryset = Post.objects.all()
+    
+    def get(self, request:Request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+    
+    def post(self, request:Request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+    
+    
