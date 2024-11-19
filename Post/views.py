@@ -119,12 +119,12 @@ def deletepost(request:Request, pk):
 
 
 class PostGetClassView(APIView):
-    serialzer = Modelserializer
+    serializer = Modelserializer
     
     def get(self, request:Request, *args, **kwargs):
         db = Post.objects.all()
         
-        serialized = serializer(instance=db, many=True)
+        serialized = self.serializer(instance=db, many=True)
         response = {
             "message": "database",
             "data": serialized.data
@@ -133,7 +133,7 @@ class PostGetClassView(APIView):
     
     def post(self, request:Request, *args, **kwargs):
         data = request.data
-        serialized = serializer(data=data)
+        serialized = self.serializer(data=data)
         
         if serialized.is_valid():
             serialized.save()

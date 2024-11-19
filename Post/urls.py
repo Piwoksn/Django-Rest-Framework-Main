@@ -10,4 +10,5 @@ urlpatterns = [
     path("update/<int:pk>", views.updatedata, name="updatedata"),
     path("delete/<int:pk>", views.deletepost, name="deletepost"),
     path("model/", views.model, name="post_model"),
+    path("getPost/", views.PostGetClassView.as_view(), name="getPost"),
 ]
