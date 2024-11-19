@@ -108,4 +108,12 @@ def updatedata(request:Request, pk:int):
     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(http_method_names=["DELETE"])
+def deletepost(request:Request, pk):
+    db = get_object_or_404(Post, pk=pk)
+    db.delete()
+    response = {
+        "message": f"Deleted id = {pk}"
+    }
+    return Response(data=response, status=status.HTTP_200_OK)
     
