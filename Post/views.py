@@ -222,3 +222,11 @@ class Using_Viewsets(viewsets.ViewSet):
         
         serializer = Modelserializer(instance = item)
         return Response(data=serializer.data, status = status.HTTP_200_OK)
+
+
+        """_summary_
+        modelcviewset makes it easier to carry out all functionalities without much coding
+        """
+class Model_viewset(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = Modelserializer
